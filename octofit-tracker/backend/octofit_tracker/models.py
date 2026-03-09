@@ -8,16 +8,15 @@ class User(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    members = models.ArrayReferenceField(to=User, on_delete=models.CASCADE)
 
 class Activity(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='activities')
     type = models.CharField(max_length=50)
     duration = models.IntegerField()
     date = models.DateField()
 
 class Leaderboard(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='leaderboards')
     points = models.IntegerField()
 
 class Workout(models.Model):
